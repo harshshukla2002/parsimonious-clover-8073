@@ -5,7 +5,7 @@ import { AiOutlineLike,AiFillLike } from "react-icons/ai";
 import { data } from './data';
 export const IndiFeedback = ({id,image,name,title,body,likes}) => {
     const [liked,setLiked] = useState(false)
-    const [count,setCount] = useState(+likes)
+    const [count,setCount] = useState(likes ? +likes:0)
     // const handleIncrease=(id)=>{
     //     console.log(id)
     //     data.map((el)=>{
