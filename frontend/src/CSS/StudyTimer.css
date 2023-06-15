@@ -35,15 +35,15 @@
 }
 
 .work-work {
-  background-color: #ff6b6b;
+  background-color: #ee2c2c;
 }
 
 .work-shortbreak {
-  background-color: #3f88c5;
+  background-color: #3599ec;
 }
 
 .work-longbreak {
-  background-color: #33cc95;
+  background-color: #2cf0a8;
 }
 
 .break-work {
@@ -51,11 +51,11 @@
 }
 
 .break-shortbreak {
-  background-color: #3f88c5;
+  background-color: #3599ec;
 }
 
 .break-longbreak {
-  background-color: #33cc95;
+  background-color: #2cf0a8;
 }
 
 .timer {
@@ -85,7 +85,7 @@
 }
 
 .start-button {
-  background-color: #5cb85c;
+  background-color: #49f649;
 }
 
 .stop-button {
