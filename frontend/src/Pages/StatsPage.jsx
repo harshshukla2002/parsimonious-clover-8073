@@ -6,6 +6,7 @@ import "../CSS/Stats.css";
 import Globalstats from "../Components/Globalstats";
 import { useWidth } from "../CustomHooks/useWidth";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import PersonalStats from "../Components/PersonalStats";
 
 const StatsPage = () => {
   const [active, setActive] = useState("global");
@@ -31,7 +32,7 @@ const StatsPage = () => {
         <Flex
           alignItems={"center"}
           justifyContent={"space-around"}
-          w={width < 1000 ? "95%" : "60%"}
+          w={width < 1000 ? "95%" : "70%"}
           m="auto"
           mt="20px"
           textAlign={"center"}
@@ -64,8 +65,8 @@ const StatsPage = () => {
             </Flex>
           </Heading>
         </Flex>
-        <Divider w={width < 1000 ? "95%" : "60%"} m="auto" />
-        <Box w={width < 1000 ? "95%" : "60%"} m="auto">
+        <Divider w={width < 1000 ? "95%" : "70%"} m="auto" />
+        <Box w={width < 1000 ? "95%" : "70%"} m="auto">
           {active === "personal" ? (
             // personal section
             <>
@@ -86,7 +87,7 @@ const StatsPage = () => {
                   <div className="bar12"></div>
                 </div>
               ) : (
-                ""
+                <PersonalStats />
               )}
             </>
           ) : (
