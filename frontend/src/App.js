@@ -7,7 +7,6 @@ function App() {
     <div className="App">
       <h1>Study Tracker Homepage</h1>
       <MainRoutes />
-      <StudyTimer/>
     </div>
   );
 }
