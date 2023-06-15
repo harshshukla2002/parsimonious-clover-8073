@@ -29,6 +29,7 @@ export const data=[
         "title":"Schedule Pomodoro Start Times",
         "body":"I would love to be able to schedule the time a pomodoro will start. For example, sometimes I have a meeting or something else in the middle of the day, but I want to be able to plan my tasks for the entire day at once.",
         "likes":"175",
+        "image":""
     },
     {
         "id":5,

@@ -45,7 +45,7 @@ export const IndiFeedback = ({id,image,name,title,body,likes}) => {
                         <Avatar bg='teal.500' />
                     }
                     
-                    <Text fontSize={"xs"}>{name}</Text>
+                    <Text align={"center"} fontSize={"xs"}>{name}</Text>
                 </VStack>
 
                 <HStack pos={"relative"} left={"2vw"} gap={5} >
