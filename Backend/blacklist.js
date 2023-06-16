@@ -2,4 +2,4 @@ const blacklist=[]
 
 
 
-module.exports={blacklist}
+module.exports=blacklist
