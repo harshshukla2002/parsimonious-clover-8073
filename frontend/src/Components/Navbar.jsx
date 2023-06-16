@@ -20,7 +20,7 @@ const Navbar = () => {
           <a href="/">Stats</a>
         </div>
         <div className="navbar-feedback">
-          <a href="/">Feedback</a>
+          <a href="/feedback">Feedback</a>
         </div>
         <div className="navbar-dropdown">
           <button onClick={handleDropdownToggle}>Signup / Login</button>
