@@ -1,13 +1,28 @@
 import { Box, Grid, GridItem, Icon } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { FaLightbulb } from "react-icons/fa";
 import { GiCheckMark } from "react-icons/gi";
 import { IndiFeedback } from './IndiFeedback';
 import { data } from './data';
 import Form from './Form';
+import { useDispatch, useSelector } from 'react-redux';
+import { feedbackget } from '../Redux/FeedbackReducer/action';
 export const Feedback = () => {
-  console.log(data)
+  const dispatch = useDispatch()
+  const {feedback,isLoading} = useSelector(state=>{
+      console.log(state)
+      return {
+        feedback:state.feedbackReducer.feedback,
+        isLoading:state.feedbackReducer.isLoading
+      }
+  })
+
+  useEffect(()=>{
+    dispatch(feedbackget)
+  },[])
+
+  console.log(feedback)
   return (
     <>
       <Box margin={"auto"} width={"60vw"} >
@@ -20,10 +35,10 @@ export const Feedback = () => {
             <TabPanel>
               <Grid gap={5} gridTemplateColumns={"repeat(1,1fr)"}>
                 {
-                  data?.map((el)=>(
+                  feedback?.map((el)=>(
                     <GridItem>
                       <IndiFeedback 
-                        key={el.id}
+                        key={el._id}
                         {...el}
                       />
                     </GridItem>

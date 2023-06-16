@@ -1,28 +1,58 @@
-import {useState} from 'react'
-import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Button, Text, Heading, VStack, Box, HStack, Icon, Avatar } from '@chakra-ui/react'
+import {useEffect, useState} from 'react'
+import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Button, Text, Heading, VStack, Box, HStack, Icon, Avatar, useToast } from '@chakra-ui/react'
 import { BsHeartFill,BsHeart } from "react-icons/bs"
 import { AiOutlineLike,AiFillLike } from "react-icons/ai";
 import { data } from './data';
-export const IndiFeedback = ({id,image,name,title,body,likes}) => {
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { feedbackget, feedbackpatch, feedbackpatchDislike } from '../Redux/FeedbackReducer/action';
+export const IndiFeedback = ({_id,image,name,title,body,likes}) => {
+    const toast = useToast()
+    const dispatch = useDispatch()
     const [liked,setLiked] = useState(false)
-    const [count,setCount] = useState(likes ? +likes:0)
-    // const handleIncrease=(id)=>{
-    //     console.log(id)
-    //     data.map((el)=>{
-    //         if(el.id===id){
-    //             return {...el,likes:el.likes+1}
-    //         }
-    //     })
-    // }
+    const [active, setActive] = useState(false);
 
-    const handleLikeIncrease=()=>{
-        setCount(count+1)
-        setLiked(!liked)
+    useEffect(() => {
+      const data = JSON.parse(localStorage.getItem("key"));
+      setActive(data);
+    }, []);
+  
+    useEffect(() => {
+      localStorage.setItem("key", active);
+    }, [active]);
+
+
+    const handleIncrease=()=>{
+        console.log(likes)
+        dispatch(feedbackpatch(_id,likes)).then(()=>{
+            toast({
+                title: 'You just liked a feedback!',
+                description: "",
+                status: 'success',
+                duration: 4000,
+                isClosable: true,
+                position:"top"
+            })
+            setLiked(!liked)
+        })
+        setActive(!active)
     }
 
+
     const handleLikeDecrese=()=>{
-        setCount(count-1)
-        setLiked(!liked)
+        console.log(likes)
+        dispatch(feedbackpatchDislike(_id,likes)).then(()=>{
+            toast({
+                title: 'You just unliked a feedback!',
+                description: "",
+                status: "error",
+                duration: 4000,
+                isClosable: true,
+                position:"top"
+            })
+            setLiked(!liked)
+        })
+        setActive(!active)
     }
     return (
         <>
@@ -45,7 +75,7 @@ export const IndiFeedback = ({id,image,name,title,body,likes}) => {
                         <Avatar bg='teal.500' />
                     }
                     
-                    <Text fontSize={"xs"}>{name}</Text>
+                    <Text align={"center"} fontSize={"xs"}>{name}</Text>
                 </VStack>
 
                 <HStack pos={"relative"} left={"2vw"} gap={5} >
@@ -61,13 +91,13 @@ export const IndiFeedback = ({id,image,name,title,body,likes}) => {
                             liked ?
                             <HStack  gap={1}>
                                 <Icon cursor={"pointer"} as={AiFillLike} fill={"green"} h={5} w={7} alignSelf={'center'} onClick={handleLikeDecrese}  />
-                                <Text color={"green"}>{count}</Text>
+                                <Text color={"green"}>{likes}</Text>
                             </HStack>
                                 
                                 :
                                 <HStack  gap={1}>
-                                    <Icon cursor={"pointer"} as={AiOutlineLike} h={5} w={7} alignSelf={'center'} onClick={handleLikeIncrease}/>
-                                    <Text>{count}</Text>
+                                    <Icon cursor={"pointer"} as={AiOutlineLike} h={5} w={7} alignSelf={'center'} onClick={handleIncrease}/>
+                                    <Text>{likes}</Text>
                                 </HStack>
                         }
 
