@@ -6,7 +6,7 @@ const UserSchema=mongoose.Schema({
     gender:String,
     pass:String,
     age:Number,
-    city:String
+    
    
 },{
     versionKey:false
