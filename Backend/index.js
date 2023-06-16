@@ -3,7 +3,11 @@ const app=express()
 const cors = require("cors")
 const {userRouter}=require("./Routes/user.route")
 const {connection}=require("./db")
+
+const cors=require("cors")
+
 const {feedbackRouter} = require("./Routes/feedback.route")
+
 app.use(express.json())
 app.use(cors())
 app.use("/users",userRouter)

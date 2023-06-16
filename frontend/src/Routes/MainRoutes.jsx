@@ -20,6 +20,7 @@ const MainRoutes = () => {
       <Footer/>
     </div>
   );
+
 };
 
 export default MainRoutes;
