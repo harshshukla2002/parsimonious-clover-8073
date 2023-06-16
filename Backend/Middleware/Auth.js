@@ -4,7 +4,7 @@ const blacklist = require("../blacklist");
 const Auth = (req, res, next) => {
   const token= req.headers.authorization.split(" ")[1]
   if (token){
-     if(blacklist.blacklist.includes(token)){
+     if(blacklist.includes(token)){
         res.json({msg:"login again"})
      }
     try {

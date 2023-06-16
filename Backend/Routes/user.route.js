@@ -49,7 +49,7 @@ userRouter.get("/logout",Auth, (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   
   try {
-    blacklist.blacklist.push()
+    blacklist.push()
     res.status(200).json({ mag: "the user is logout" });
   } catch (err) {
     res.status(400).json({ err: err.message });

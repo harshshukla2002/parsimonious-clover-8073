@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+
 import StatsPage from "../Pages/StatsPage";
 import { Feedback } from "../Feedback/Main";
 import StudyTimer from "../Components/StudyTimer";
@@ -20,6 +21,7 @@ const MainRoutes = () => {
       <Footer/>
     </div>
   );
+
 
 };
 

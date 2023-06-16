@@ -1,8 +1,19 @@
-import { applyMiddleware, combineReducers, legacy_createStore } from "redux";
-import { reducer as feedbackReducer } from "./FeedbackReducer/reducer";
-import thunk from "redux-thunk"
-const rootReducers = combineReducers({
-    feedbackReducer
-})
 
-export const store = legacy_createStore(rootReducers , applyMiddleware(thunk))
+import {applyMiddleware, combineReducers, legacy_createStore,compose} from "redux"
+import thunk from "redux-thunk";
+import {reducer as AdminReducer} from "../Redux/adminReducer/reducer";
+import { reducer as feedbackReducer } from "./FeedbackReducer/reducer";
+
+const rootReducer = combineReducers({
+    AdminReducer,
+  feedbackReducer
+  });
+  
+const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+
+
+
+  export const store = legacy_createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)));
+
