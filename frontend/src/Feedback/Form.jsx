@@ -15,6 +15,7 @@ import {
     Tooltip,
     useClipboard,
     useColorModeValue,
+    useToast,
     VStack,
   } from '@chakra-ui/react';
   import React, { useState } from 'react';
@@ -47,6 +48,7 @@ import { feedbackpost } from '../Redux/FeedbackReducer/action';
   }
 
   export default function Form() {
+    const toast = useToast()
     const [feedback , setFeedback] = useState(initState)
     const dispatch = useDispatch()
 
@@ -61,7 +63,16 @@ import { feedbackpost } from '../Redux/FeedbackReducer/action';
     const handleSubmit=(e)=>{
       e.preventDefault()
       console.log(feedback)
-      dispatch(feedbackpost(feedback))
+      dispatch(feedbackpost(feedback)).then(()=>{
+        toast({
+          title: 'Feedback Added Successfully!!',
+          description: "Thank you for your feedback!",
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+          position:"top"
+        })
+      })
     }
     return (
       <Flex
