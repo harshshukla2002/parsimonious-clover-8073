@@ -16,7 +16,7 @@ const TodoApp = () => {
 
   const fetchTodos = async () => {
     try {
-      const response = await fetch('api/todos');
+      const response = await fetch('http://localhost:4500/todos');
       const data = await response.json();
       setTodos(data.todos || []);
     } catch (error) {
@@ -26,7 +26,7 @@ const TodoApp = () => {
 
   const createTodo = async () => {
     try {
-      const response = await fetch('api/todos', {
+      const response = await fetch('http://localhost:4500/todos/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -51,7 +51,7 @@ const TodoApp = () => {
 
   const updateTodo = async (id) => {
     try {
-      const response = await fetch(`api/todos/${id}`, {
+      const response = await fetch(`http://localhost:4500/todos/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -78,7 +78,7 @@ const TodoApp = () => {
 
   const deleteTodo = async (id) => {
     try {
-      const response = await fetch(`api/todos/${id}`, {
+      const response = await fetch(`http://localhost:4500/todos/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
