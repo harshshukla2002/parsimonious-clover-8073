@@ -7,7 +7,11 @@ const todoRouter = express.Router();
 todoRouter.post("/create", Auth, async (req, res) => {
   const { title, description } = req.body;
   try {
-    const todo = await TodoModel.create({ title, description, userId: req.body.userId });
+    const todo = await TodoModel.create({
+      title,
+      description,
+      userId: req.body.userId,
+    });
     res.status(200).send({ msg: "Todo created successfully", todo });
   } catch (error) {
     res.status(400).send({ error: error.message });
@@ -16,7 +20,7 @@ todoRouter.post("/create", Auth, async (req, res) => {
 
 todoRouter.get("/", Auth, async (req, res) => {
   try {
-    const todos = await TodoModel.find({ userId: req.body.userId });
+    const todos = await TodoModel.find({ userId: req.query.userId });
     res.status(200).send({ todos });
   } catch (error) {
     res.status(400).send({ error: error.message });
@@ -26,7 +30,10 @@ todoRouter.get("/", Auth, async (req, res) => {
 todoRouter.get("/:id", Auth, async (req, res) => {
   const todoId = req.params.id;
   try {
-    const todo = await TodoModel.findOne({ _id: todoId, userId: req.body.userId });
+    const todo = await TodoModel.findOne({
+      _id: todoId,
+      userId: req.body.userId,
+    });
     if (todo) {
       res.status(200).send({ todo });
     } else {
@@ -47,7 +54,9 @@ todoRouter.put("/:id", Auth, async (req, res) => {
       { new: true }
     );
     if (updatedTodo) {
-      res.status(200).send({ msg: "Todo updated successfully", todo: updatedTodo });
+      res
+        .status(200)
+        .send({ msg: "Todo updated successfully", todo: updatedTodo });
     } else {
       res.status(404).send({ msg: "Todo not found" });
     }
@@ -59,9 +68,14 @@ todoRouter.put("/:id", Auth, async (req, res) => {
 todoRouter.delete("/:id", Auth, async (req, res) => {
   const todoId = req.params.id;
   try {
-    const deletedTodo = await TodoModel.findOneAndDelete({ _id: todoId, userId: req.body.userId });
+    const deletedTodo = await TodoModel.findOneAndDelete({
+      _id: todoId,
+      userId: req.body.userId,
+    });
     if (deletedTodo) {
-      res.status(200).send({ msg: "Todo deleted successfully", todo: deletedTodo });
+      res
+        .status(200)
+        .send({ msg: "Todo deleted successfully", todo: deletedTodo });
     } else {
       res.status(404).send({ msg: "Todo not found" });
     }
@@ -71,4 +85,3 @@ todoRouter.delete("/:id", Auth, async (req, res) => {
 });
 
 module.exports = { todoRouter };
-
