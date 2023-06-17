@@ -25,41 +25,40 @@ export default function Login() {
   const [showPass, setShowPass] = useState(false);
   const toast = useToast();
   const handleClick = () => {
-    
-      const payload = {
-        email,
-        pass,
-      };
-      axios
-        .post("http://localhost:4500/users/login", payload, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((res) => res.data)
-        .then((data) => {
-           if(data.token){
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("user", data.user);
-            console.log(data.user.name)
-            toast({
-              title: "Login Successful",
-              position: "top",
-              status: "success",
-              duration: 1000,
-              isClosable: true,
-            })
-           }
-        }).catch((err)=>{
+    const payload = {
+      email,
+      pass,
+    };
+    axios
+      .post("http://localhost:4500/users/login", payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => res.data)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("token", JSON.stringify(data.token));
+          localStorage.setItem("user", JSON.stringify(data.user));
+          console.log(data.user.name);
           toast({
-            title: "Login Failed",
+            title: "Login Successful",
             position: "top",
-            status: "error",
+            status: "success",
             duration: 1000,
             isClosable: true,
-          })
-        })
-     
+          });
+        }
+      })
+      .catch((err) => {
+        toast({
+          title: "Login Failed",
+          position: "top",
+          status: "error",
+          duration: 1000,
+          isClosable: true,
+        });
+      });
   };
 
   return (
@@ -137,24 +136,24 @@ export default function Login() {
               <Button
                 onClick={handleClick}
                 loadingText="Submitting"
-                  size="lg"
-                  bg={"#df9018"}
-                  color={"white"}
-                  _hover={{
-                    bg: "pink.500",
-                  }}
+                size="lg"
+                bg={"#df9018"}
+                color={"white"}
+                _hover={{
+                  bg: "pink.500",
+                }}
               >
                 Sign In
               </Button>
             </Stack>
             <Stack pt={6}>
-                <Text align={"center"}>
-                  Create an account?{" "}
-                  <Link color={"blue.400"} href="/signup">
-                    Sign Up
-                  </Link>
-                </Text>
-              </Stack>
+              <Text align={"center"}>
+                Create an account?{" "}
+                <Link color={"blue.400"} href="/signup">
+                  Sign Up
+                </Link>
+              </Text>
+            </Stack>
           </Stack>
         </Box>
       </Stack>

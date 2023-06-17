@@ -17,7 +17,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-sections">
         <div className="navbar-stats">
-          <a href="/">Stats</a>
+          <a href="/stats">Stats</a>
         </div>
         <div className="navbar-feedback">
           <a href="/feedback">Feedback</a>

@@ -1,34 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { FaTrashAlt, FaEdit, FaCheck } from 'react-icons/fa';
-import '../CSS/TodoApp.css';
+import React, { useState, useEffect } from "react";
+import { FaTrashAlt, FaEdit, FaCheck } from "react-icons/fa";
+import "../CSS/TodoApp.css";
+import axios from "axios";
 
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
-  const [newTitle, setNewTitle] = useState('');
-  const [newDescription, setNewDescription] = useState('');
-  const [editTodoId, setEditTodoId] = useState('');
-  const [editTitle, setEditTitle] = useState('');
-  const [editDescription, setEditDescription] = useState('');
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [editTodoId, setEditTodoId] = useState("");
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const user = JSON.parse(localStorage.getItem("user")) || [];
+  const token = JSON.parse(localStorage.getItem("token")) || "";
 
   useEffect(() => {
     fetchTodos();
   }, []);
 
   const fetchTodos = async () => {
+    const GetCofig = {
+      headers: { authorization: `bearer ${token}` },
+      params: {
+        userId: user._id,
+      },
+    };
     try {
-      const response = await fetch('api/todos');
-      const data = await response.json();
-      setTodos(data.todos || []);
+      const response = await axios.get(
+        "http://localhost:4500/todos/",
+        GetCofig
+      );
+      setTodos(response.data.todos);
     } catch (error) {
-      console.error('Error fetching todos:', error);
+      console.error("Error fetching todos:", error);
     }
   };
 
   const createTodo = async () => {
     try {
-      const response = await fetch('api/todos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("api/todos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: newTitle,
           description: newDescription,
@@ -36,10 +47,10 @@ const TodoApp = () => {
       });
       const data = await response.json();
       setTodos([...todos, data]);
-      setNewTitle('');
-      setNewDescription('');
+      setNewTitle("");
+      setNewDescription("");
     } catch (error) {
-      console.error('Error creating todo:', error);
+      console.error("Error creating todo:", error);
     }
   };
 
@@ -52,8 +63,8 @@ const TodoApp = () => {
   const updateTodo = async (id) => {
     try {
       const response = await fetch(`api/todos/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: editTitle,
           description: editDescription,
@@ -67,26 +78,26 @@ const TodoApp = () => {
           return todo;
         });
         setTodos(updatedTodos);
-        setEditTodoId('');
-        setEditTitle('');
-        setEditDescription('');
+        setEditTodoId("");
+        setEditTitle("");
+        setEditDescription("");
       }
     } catch (error) {
-      console.error('Error updating todo:', error);
+      console.error("Error updating todo:", error);
     }
   };
 
   const deleteTodo = async (id) => {
     try {
       const response = await fetch(`api/todos/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       if (response.ok) {
         const updatedTodos = todos.filter((todo) => todo.id !== id);
         setTodos(updatedTodos);
       }
     } catch (error) {
-      console.error('Error deleting todo:', error);
+      console.error("Error deleting todo:", error);
     }
   };
 
@@ -128,7 +139,10 @@ const TodoApp = () => {
         </thead>
         <tbody>
           {todos.map((todo) => (
-            <tr key={todo.id} className={`todo-item ${editTodoId === todo.id ? 'editing' : ''}`}>
+            <tr
+              key={todo.id}
+              className={`todo-item ${editTodoId === todo.id ? "editing" : ""}`}
+            >
               <td>
                 {editTodoId === todo.id ? (
                   <input
@@ -156,16 +170,27 @@ const TodoApp = () => {
               <td>
                 {editTodoId === todo.id ? (
                   <>
-                    <button className="action-button" onClick={() => updateTodo(todo.id)}>
+                    <button
+                      className="action-button"
+                      onClick={() => updateTodo(todo.id)}
+                    >
                       <FaCheck className="action-icon" />
                     </button>
                   </>
                 ) : (
                   <>
-                    <button className="action-button" onClick={() => handleEdit(todo.id, todo.title, todo.description)}>
+                    <button
+                      className="action-button"
+                      onClick={() =>
+                        handleEdit(todo.id, todo.title, todo.description)
+                      }
+                    >
                       <FaEdit className="action-icon" />
                     </button>
-                    <button className="action-button" onClick={() => deleteTodo(todo.id)}>
+                    <button
+                      className="action-button"
+                      onClick={() => deleteTodo(todo.id)}
+                    >
                       <FaTrashAlt className="action-icon" />
                     </button>
                   </>
