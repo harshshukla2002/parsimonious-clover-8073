@@ -3,6 +3,7 @@ const app=express()
 const cors = require("cors")
 const {userRouter}=require("./Routes/user.route")
 const {connection}=require("./db")
+require("dotenv").config();
 
 
 const {feedbackRouter} = require("./Routes/feedback.route")

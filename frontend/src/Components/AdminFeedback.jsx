@@ -9,7 +9,7 @@ const AdminFeedback = () => {
   const GetFeedback = async () => {
     const headers = { authorization: `bearer ${token}` };
     try {
-      const res = await axios.get("http://localhost:4500/feedback/", headers);
+      const res = await axios.get("https://clear-gaiters-hen.cyclic.app/feedback/", headers);
       setFeedback(res.data);
     } catch (error) {
       console.log(error.message);
@@ -36,7 +36,7 @@ const AdminFeedback = () => {
               <Box m="0px 10px">
                 <Text m="5px">Title: {item.title}</Text>
                 <Text m="5px">Description: {item.body}</Text>
-                <Text m="5px">Likes: {item.liked}</Text>
+                <Text m="5px">Likes: {item.likes}</Text>
               </Box>
             </Box>
           );

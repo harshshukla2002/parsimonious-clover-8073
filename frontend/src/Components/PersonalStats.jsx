@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineLine } from "react-icons/ai";
 import { BsFillCalendarFill } from "react-icons/bs";
 import BarChart from "./Barchart";
@@ -8,10 +8,13 @@ import "../CSS/PersonalStats.css";
 import { FaClock } from "react-icons/fa";
 import { AiOutlineBars } from "react-icons/ai";
 import { ImCross } from "react-icons/im";
+import axios from "axios";
 
 const PersonalStats = () => {
   const date = new Date();
   const [value, setValue] = useState("time");
+  const timeSpent = Math.floor(Math.random() * 10);
+  const TodoLength = JSON.parse(localStorage.getItem("todo-length")) || 0;
 
   return (
     <div>
@@ -88,7 +91,8 @@ const PersonalStats = () => {
             justifyContent={"space-between"}
             fontSize={"25px"}
           >
-            <BsCheckCircleFill />1
+            <BsCheckCircleFill />
+            {TodoLength}
           </Flex>
           <Text textAlign={"right"}>Pomodoros</Text>
         </Box>
@@ -99,7 +103,7 @@ const PersonalStats = () => {
             fontSize={"25px"}
           >
             <FaClock />
-            1m
+            {timeSpent}m
           </Flex>
           <Text textAlign={"right"}>Time Spent</Text>
         </Box>
@@ -110,7 +114,7 @@ const PersonalStats = () => {
             fontSize={"25px"}
           >
             <AiOutlineBars />
-            1/1m
+            {TodoLength}/{timeSpent}m
           </Flex>
           <Text textAlign={"right"}>Median Per Day</Text>
         </Box>
@@ -121,7 +125,7 @@ const PersonalStats = () => {
             fontSize={"25px"}
           >
             <BsFillLightbulbFill />
-            100%
+            {Math.floor(Math.random() * 100)}%
           </Flex>
           <Text textAlign={"right"}>Focus</Text>
         </Box>

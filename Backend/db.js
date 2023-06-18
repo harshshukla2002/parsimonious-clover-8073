@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-const connection=mongoose.connect("mongodb+srv://harshshukla:harsh12@cluster0.ob6lhlw.mongodb.net/Pomodoro?retryWrites=true&w=majority")
+const connection = mongoose.connect(process.env.mongoURL);
 
-module.exports={
-    connection
-}
+module.exports = {
+  connection,
+};

@@ -6,6 +6,7 @@ import { MdFeedback } from "react-icons/md";
 import "../CSS/Stats.css";
 import Users from "../Components/users";
 import AdminFeedback from "../Components/AdminFeedback";
+import Navbar from "../Components/Navbar";
 
 const Adminpage = () => {
   const width = useWidth();
@@ -25,6 +26,7 @@ const Adminpage = () => {
 
   return (
     <div>
+      <Navbar />
       <Flex
         alignItems={"center"}
         justifyContent={"space-around"}
@@ -61,6 +63,7 @@ const Adminpage = () => {
           </Flex>
         </Heading>
       </Flex>
+      <hr />
       <Box w={width < 1000 ? "95%" : "70%"} m="auto">
         {active === "user" ? (
           <>

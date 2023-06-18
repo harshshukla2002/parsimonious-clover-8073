@@ -20,7 +20,7 @@ const Users = () => {
   const GetUser = async () => {
     const headers = { authorization: `Bearer ${token}` };
     try {
-      const res = await axios.get("http://localhost:4500/users/", headers);
+      const res = await axios.get("https://clear-gaiters-hen.cyclic.app/users/", headers);
       setUsers(res.data.users);
     } catch (error) {
       console.log(error.message);

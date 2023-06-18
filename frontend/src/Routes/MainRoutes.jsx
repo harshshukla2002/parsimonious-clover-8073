@@ -7,7 +7,7 @@ import Adminpage from "../Pages/Adminpage";
 import AdminLogin from "../Pages/AdminLogin";
 import Signup from "../Pages/Signup";
 import Login from "../Pages/Login";
-
+import AdminTodo from "../Components/AdminTodo";
 
 const MainRoutes = () => {
   return (
@@ -22,7 +22,6 @@ const MainRoutes = () => {
         <Route path="/admin" element={<Adminpage />} />
         <Route path="/users/:id" element={<AdminTodo />} />
       </Routes>
-
     </div>
   );
 };

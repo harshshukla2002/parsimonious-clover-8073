@@ -26,10 +26,14 @@ const TodoApp = () => {
     };
     try {
       const response = await axios.get(
-        "http://localhost:4500/todos/",
+        "https://clear-gaiters-hen.cyclic.app/todos/",
         GetCofig
       );
       setTodos(response.data.todos);
+      localStorage.setItem(
+        "todo-length",
+        JSON.stringify(response.data.todos.length)
+      );
     } catch (error) {
       console.error("Error fetching todos:", error);
     }
@@ -37,18 +41,25 @@ const TodoApp = () => {
 
   const createTodo = async () => {
     try {
-      const response = await fetch("api/todos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: newTitle,
-          description: newDescription,
-        }),
-      });
+      const response = await fetch(
+        "https://clear-gaiters-hen.cyclic.app/todos/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${token}`,
+          },
+          body: JSON.stringify({
+            title: newTitle,
+            description: newDescription,
+          }),
+        }
+      );
       const data = await response.json();
       setTodos([...todos, data]);
       setNewTitle("");
       setNewDescription("");
+      fetchTodos();
     } catch (error) {
       console.error("Error creating todo:", error);
     }
@@ -62,17 +73,23 @@ const TodoApp = () => {
 
   const updateTodo = async (id) => {
     try {
-      const response = await fetch(`api/todos/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: editTitle,
-          description: editDescription,
-        }),
-      });
+      const response = await fetch(
+        `https://clear-gaiters-hen.cyclic.app/todos/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${token}`,
+          },
+          body: JSON.stringify({
+            title: editTitle,
+            description: editDescription,
+          }),
+        }
+      );
       if (response.ok) {
         const updatedTodos = todos.map((todo) => {
-          if (todo.id === id) {
+          if (todo._id === id) {
             return { ...todo, title: editTitle, description: editDescription };
           }
           return todo;
@@ -81,6 +98,7 @@ const TodoApp = () => {
         setEditTodoId("");
         setEditTitle("");
         setEditDescription("");
+        fetchTodos();
       }
     } catch (error) {
       console.error("Error updating todo:", error);
@@ -89,12 +107,17 @@ const TodoApp = () => {
 
   const deleteTodo = async (id) => {
     try {
-      const response = await fetch(`api/todos/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://clear-gaiters-hen.cyclic.app/todos/${id}`,
+        {
+          method: "DELETE",
+          headers: { authorization: `bearer ${token}` },
+        }
+      );
       if (response.ok) {
-        const updatedTodos = todos.filter((todo) => todo.id !== id);
+        const updatedTodos = todos.filter((todo) => todo._id !== id);
         setTodos(updatedTodos);
+        fetchTodos();
       }
     } catch (error) {
       console.error("Error deleting todo:", error);
@@ -138,13 +161,15 @@ const TodoApp = () => {
           </tr>
         </thead>
         <tbody>
-          {todos.map((todo) => (
+          {todos?.map((todo) => (
             <tr
-              key={todo.id}
-              className={`todo-item ${editTodoId === todo.id ? "editing" : ""}`}
+              key={todo._id}
+              className={`todo-item ${
+                editTodoId === todo._id ? "editing" : ""
+              }`}
             >
               <td>
-                {editTodoId === todo.id ? (
+                {editTodoId === todo._id ? (
                   <input
                     type="text"
                     className="todo-input"
@@ -156,7 +181,7 @@ const TodoApp = () => {
                 )}
               </td>
               <td>
-                {editTodoId === todo.id ? (
+                {editTodoId === todo._id ? (
                   <input
                     type="text"
                     className="todo-input"
@@ -168,11 +193,11 @@ const TodoApp = () => {
                 )}
               </td>
               <td>
-                {editTodoId === todo.id ? (
+                {editTodoId === todo._id ? (
                   <>
                     <button
                       className="action-button"
-                      onClick={() => updateTodo(todo.id)}
+                      onClick={() => updateTodo(todo._id)}
                     >
                       <FaCheck className="action-icon" />
                     </button>
@@ -182,14 +207,14 @@ const TodoApp = () => {
                     <button
                       className="action-button"
                       onClick={() =>
-                        handleEdit(todo.id, todo.title, todo.description)
+                        handleEdit(todo._id, todo.title, todo.description)
                       }
                     >
                       <FaEdit className="action-icon" />
                     </button>
                     <button
                       className="action-button"
-                      onClick={() => deleteTodo(todo.id)}
+                      onClick={() => deleteTodo(todo._id)}
                     >
                       <FaTrashAlt className="action-icon" />
                     </button>

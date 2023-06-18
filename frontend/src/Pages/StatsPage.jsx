@@ -12,7 +12,6 @@ import Navbar from "../Components/Navbar";
 
 import TodoApp from "../Components/TodoApp";
 
-
 const StatsPage = () => {
   const [active, setActive] = useState("global");
   const [loading, setLoading] = useState(false);
@@ -31,9 +30,8 @@ const StatsPage = () => {
   }, [active, date]);
 
   return (
-    
     <div>
-     
+      <Navbar />
       <Box p="10px">
         {/* navbar for stats */}
         <Flex

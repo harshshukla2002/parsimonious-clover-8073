@@ -44,12 +44,12 @@ todoRouter.get("/:id", Auth, async (req, res) => {
   }
 });
 
-todoRouter.put("/:id", Auth, async (req, res) => {
+todoRouter.patch("/:id", Auth, async (req, res) => {
   const todoId = req.params.id;
   const { title, description } = req.body;
   try {
     const updatedTodo = await TodoModel.findOneAndUpdate(
-      { _id: todoId, userId: req.body.userId },
+      { _id: todoId },
       { title, description },
       { new: true }
     );
@@ -68,10 +68,7 @@ todoRouter.put("/:id", Auth, async (req, res) => {
 todoRouter.delete("/:id", Auth, async (req, res) => {
   const todoId = req.params.id;
   try {
-    const deletedTodo = await TodoModel.findOneAndDelete({
-      _id: todoId,
-      userId: req.body.userId,
-    });
+    const deletedTodo = await TodoModel.findOneAndDelete({ _id: todoId });
     if (deletedTodo) {
       res
         .status(200)
