@@ -16,7 +16,7 @@ todoRouter.post("/create", Auth, async (req, res) => {
 
 todoRouter.get("/", Auth, async (req, res) => {
   try {
-    const todos = await TodoModel.find({ userId: req.body.userId });
+    const todos = await TodoModel.find({ userId: req.query.userId });
     res.status(200).send({ todos });
   } catch (error) {
     res.status(400).send({ error: error.message });
@@ -37,7 +37,7 @@ todoRouter.get("/:id", Auth, async (req, res) => {
   }
 });
 
-todoRouter.put("/:id", Auth, async (req, res) => {
+todoRouter.patch("/:id", Auth, async (req, res) => {
   const todoId = req.params.id;
   const { title, description } = req.body;
   try {
