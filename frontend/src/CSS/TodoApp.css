@@ -1,0 +1,96 @@
+/* TodoApp.css */
+
+.todo-app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  margin-top: 30px;
+}
+
+.todo-app h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.todo-form {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.todo-input {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 16px;
+  margin: 0 2px;
+}
+
+.add-button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.todo-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.todo-table th,
+.todo-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.todo-item {
+  transition: background-color 0.2s ease;
+}
+
+.todo-item:hover {
+  background-color: #f9f9f9;
+}
+
+.todo-title input {
+  border: none;
+  width: 100%;
+}
+
+.action-button {
+  padding: 5px;
+  margin-right: 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.action-icon {
+  font-size: 16px;
+}
+
+.add-button,
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-icon:hover {
+  color: #333;
+}
+
+@media screen and (max-width: 600px) {
+  .todo-input,
+  .add-button {
+    font-size: 14px;
+  }
+
+  .action-icon {
+    font-size: 14px;
+  }
+}

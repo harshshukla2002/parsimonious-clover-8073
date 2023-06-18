@@ -7,7 +7,11 @@ import Globalstats from "../Components/Globalstats";
 import { useWidth } from "../CustomHooks/useWidth";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import PersonalStats from "../Components/PersonalStats";
+
 import Navbar from "../Components/Navbar";
+
+import TodoApp from "../Components/TodoApp";
+
 
 const StatsPage = () => {
   const [active, setActive] = useState("global");
@@ -90,7 +94,10 @@ const StatsPage = () => {
                   <div className="bar12"></div>
                 </div>
               ) : (
-                <PersonalStats />
+                <>
+                  <PersonalStats />
+                  <TodoApp />
+                </>
               )}
             </>
           ) : (

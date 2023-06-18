@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
-require("dotenv").config()
+require("dotenv").config();
 const blacklist = require("../blacklist");
 const Auth = (req, res, next) => {
-  const token= req.headers.authorization.split(" ")[1]
-  if (token){
-     if(blacklist.includes(token)){
-        res.json({msg:"login again"})
-     }
+  const token = req.headers.authorization.split(" ")[1];
+  if (token) {
+    if (blacklist.includes(token)) {
+      res.json({ msg: "login again" });
+    }
     try {
       const decoded = jwt.verify(token, "Pomodro");
       if (decoded) {
@@ -16,12 +16,11 @@ const Auth = (req, res, next) => {
         res.json({ msg: "invalid token" });
       }
     } catch (err) {
-      res.json({ msg: "hello" });
+      res.json({ err });
     }
-  }else{
-    res.json({msg:"login again"})
+  } else {
+    res.json({ msg: "login again" });
   }
 };
 
-
-module.exports={Auth}
+module.exports = { Auth };

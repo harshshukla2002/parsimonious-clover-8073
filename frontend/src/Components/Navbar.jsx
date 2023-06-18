@@ -43,7 +43,9 @@ const Navbar = () => {
         <img src={logo} alt="Logo" />
       </div>
       <div className="navbar-sections">
-        <div className="navbar-stats" >
+
+        <div className="navbar-stats">
+
           <a href="/stats">Stats</a>
         </div>
         <div className="navbar-feedback">

@@ -4,6 +4,7 @@ import StudyTimer from '../Components/StudyTimer'
 import Carousel from '../Components/Carousel'
 import Footer from '../Components/Footer'
 
+
 const Homepage = () => {
   return (
     <div>
@@ -14,5 +15,6 @@ const Homepage = () => {
     </div>
   )
 }
+
 
 export default Homepage
