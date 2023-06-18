@@ -4,7 +4,7 @@ const cors = require("cors")
 const {userRouter}=require("./Routes/user.route")
 const {connection}=require("./db")
 
-const cors=require("cors")
+
 
 const {feedbackRouter} = require("./Routes/feedback.route")
 

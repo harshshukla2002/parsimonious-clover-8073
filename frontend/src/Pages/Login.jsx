@@ -18,12 +18,13 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-
+import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [pass, setpass] = useState("");
   const [showPass, setShowPass] = useState(false);
   const toast = useToast();
+  const navigate=useNavigate()
   const handleClick = () => {
     
       const payload = {
@@ -40,7 +41,7 @@ export default function Login() {
         .then((data) => {
            if(data.token){
             localStorage.setItem("token", data.token);
-            localStorage.setItem("user", data.user);
+            localStorage.setItem("user.name", data.user.name);
             console.log(data.user.name)
             toast({
               title: "Login Successful",
@@ -49,6 +50,7 @@ export default function Login() {
               duration: 1000,
               isClosable: true,
             })
+            navigate("/")
            }
         }).catch((err)=>{
           toast({

@@ -7,6 +7,7 @@ import Globalstats from "../Components/Globalstats";
 import { useWidth } from "../CustomHooks/useWidth";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import PersonalStats from "../Components/PersonalStats";
+import Navbar from "../Components/Navbar";
 
 const StatsPage = () => {
   const [active, setActive] = useState("global");
@@ -26,7 +27,9 @@ const StatsPage = () => {
   }, [active, date]);
 
   return (
+    
     <div>
+     
       <Box p="10px">
         {/* navbar for stats */}
         <Flex

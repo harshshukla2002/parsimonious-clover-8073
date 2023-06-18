@@ -16,7 +16,7 @@ import {
     InputGroup,
   } from "@chakra-ui/react";
   import { useState } from "react";
-  
+  import { useNavigate } from "react-router-dom";
   import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 import { login } from "../Redux/adminReducer/action";
@@ -27,7 +27,7 @@ import { login } from "../Redux/adminReducer/action";
     const [showPass, setShowPass] = useState(false);
     const toast = useToast();
     const dispatch=useDispatch()
-
+    const navigate=useNavigate()
     const handleSubmit=()=>{
       const payload={
         email,
@@ -43,6 +43,7 @@ import { login } from "../Redux/adminReducer/action";
         })
       }else{
         dispatch(login(payload))
+      
         toast({
           title:"Login Successful",
           position:"top",
@@ -50,6 +51,7 @@ import { login } from "../Redux/adminReducer/action";
           duration:1000,
           isClosable:true
         })
+        navigate("/")
       }
       
     }
