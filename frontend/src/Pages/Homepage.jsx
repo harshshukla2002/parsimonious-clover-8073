@@ -4,12 +4,17 @@ import StudyTimer from '../Components/StudyTimer'
 import Carousel from '../Components/Carousel'
 import Footer from '../Components/Footer'
 
-export const Homepage = () => {
+
+const Homepage = () => {
   return (
     <div>
+        <Navbar/>
       <StudyTimer/>
       <Carousel/>
       
     </div>
   )
 }
+
+
+export default Homepage

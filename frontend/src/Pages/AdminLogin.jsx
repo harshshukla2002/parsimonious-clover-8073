@@ -1,4 +1,5 @@
 import {
+
   Flex,
   Box,
   FormControl,
@@ -57,6 +58,7 @@ export default function AdminLogin() {
         isClosable: true,
       });
       navigate("/admin");
+
     }
   };
 
